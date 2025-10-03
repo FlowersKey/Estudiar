@@ -4,7 +4,734 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudio Interactivo - Química y Biología</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+        :root {
+  /* Primitive Color Tokens - Paleta Pastel Rosa */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(255, 245, 247, 1);
+  --color-cream-100: rgba(255, 240, 245, 1);
+  --color-gray-200: rgba(255, 230, 240, 1);
+  --color-gray-300: rgba(212, 165, 216, 1);
+  --color-gray-400: rgba(224, 187, 228, 1);
+  --color-slate-500: rgba(180, 140, 180, 1);
+  --color-brown-600: rgba(255, 179, 193, 1);
+  --color-charcoal-700: rgba(60, 40, 50, 1);
+  --color-charcoal-800: rgba(50, 35, 45, 1);
+  --color-slate-900: rgba(80, 50, 70, 1);
+  --color-teal-300: rgba(255, 182, 193, 1);
+  --color-teal-400: rgba(255, 158, 183, 1);
+  --color-teal-500: rgba(255, 140, 170, 1);
+  --color-teal-600: rgba(240, 120, 150, 1);
+  --color-teal-700: rgba(220, 100, 130, 1);
+  --color-teal-800: rgba(255, 160, 180, 1);
+  --color-red-400: rgba(255, 150, 150, 1);
+  --color-red-500: rgba(255, 120, 130, 1);
+  --color-orange-400: rgba(255, 200, 180, 1);
+  --color-orange-500: rgba(255, 180, 160, 1);
+
+  --color-brown-600-rgb: 255, 179, 193;
+  --color-teal-500-rgb: 255, 140, 170;
+  --color-slate-900-rgb: 80, 50, 70;
+  --color-slate-500-rgb: 180, 140, 180;
+  --color-red-500-rgb: 255, 120, 130;
+  --color-red-400-rgb: 255, 150, 150;
+  --color-orange-500-rgb: 255, 180, 160;
+  --color-orange-400-rgb: 255, 200, 180;
+
+  --color-bg-1: rgba(255, 182, 255, 0.12);
+  --color-bg-2: rgba(255, 220, 200, 0.12);
+  --color-bg-3: rgba(200, 255, 220, 0.12);
+  --color-bg-4: rgba(255, 200, 220, 0.12);
+  --color-bg-5: rgba(230, 200, 255, 0.12);
+  --color-bg-6: rgba(255, 210, 180, 0.12);
+  --color-bg-7: rgba(255, 180, 200, 0.12);
+  --color-bg-8: rgba(200, 230, 255, 0.12);
+
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.15);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.35);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-btn-primary-text: var(--color-white);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.15);
+  --color-error: var(--color-red-500);
+  --color-success: rgba(150, 220, 180, 1);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+
+  --color-success-rgb: 150, 220, 180;
+  --color-error-rgb: 255, 120, 130;
+  --color-warning-rgb: 255, 180, 160;
+  --color-info-rgb: 180, 140, 180;
+
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  --space-0: 0;
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 224, 187, 228;
+    --color-teal-300-rgb: 255, 182, 193;
+    --color-gray-300-rgb: 212, 165, 216;
+    --color-gray-200-rgb: 255, 230, 240;
+    --color-bg-1: rgba(180, 140, 255, 0.15);
+    --color-bg-2: rgba(255, 180, 140, 0.15);
+    --color-bg-3: rgba(140, 255, 180, 0.15);
+    --color-bg-4: rgba(255, 140, 180, 0.15);
+    --color-bg-5: rgba(200, 140, 255, 0.15);
+    --color-bg-6: rgba(255, 170, 140, 0.15);
+    --color-bg-7: rgba(255, 150, 180, 0.15);
+    --color-bg-8: rgba(140, 200, 255, 0.15);
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: rgba(180, 255, 200, 1);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-white);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+    --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    --color-border-secondary: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+    --color-success-rgb: 180, 255, 200;
+    --color-error-rgb: 255, 150, 150;
+    --color-warning-rgb: 255, 200, 180;
+    --color-info-rgb: 212, 165, 216;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+h1 { font-size: var(--font-size-4xl); }
+h2 { font-size: var(--font-size-3xl); }
+h3 { font-size: var(--font-size-2xl); }
+h4 { font-size: var(--font-size-xl); }
+h5 { font-size: var(--font-size-lg); }
+h6 { font-size: var(--font-size-md); }
+
+p { margin: 0 0 var(--space-16) 0; }
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+a:hover { color: var(--color-primary-hover); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  border: none;
+  text-decoration: none;
+  position: relative;
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.btn--primary:hover { background: var(--color-primary-hover); }
+.btn--primary:active { background: var(--color-primary-active); }
+
+.btn--secondary {
+  background: var(--color-secondary);
+  color: var(--color-text);
+}
+
+.btn--secondary:hover { background: var(--color-secondary-hover); }
+.btn--secondary:active { background: var(--color-secondary-active); }
+
+.btn--outline {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.btn--outline:hover { background: var(--color-secondary); }
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  transition: border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+
+.form-control:focus {
+  border-color: var(--color-primary);
+  outline: var(--focus-outline);
+}
+
+.form-label {
+  display: block;
+  margin-bottom: var(--space-8);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+}
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: var(--space-16);
+  padding-left: var(--space-16);
+}
+
+.hidden { display: none !important; }
+
+.app-header {
+  text-align: center;
+  margin-bottom: var(--space-32);
+  padding: var(--space-24) 0;
+}
+
+.app-header h1 {
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--space-8);
+  background: linear-gradient(135deg, var(--color-teal-500), var(--color-teal-700));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.app-main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--space-16);
+}
+
+.mode-selector {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.mode-btn {
+  min-width: 140px;
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.mode-btn.active {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.filters-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+  padding: var(--space-20);
+  background: var(--color-bg-1);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+}
+
+.filter-group, .search-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.progress-section { margin-bottom: var(--space-32); }
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-16);
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.card-counter {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  font-size: var(--font-size-lg);
+}
+
+.category-badge {
+  background: var(--color-bg-2);
+  color: var(--color-primary);
+  padding: var(--space-6) var(--space-12);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border: 1px solid var(--color-primary);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--color-secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) var(--ease-standard);
+}
+
+.flashcard-container {
+  margin-bottom: var(--space-32);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.flashcard {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  height: 350px;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  backface-visibility: hidden;
+  transition: transform var(--duration-normal) var(--ease-standard);
+  border: 2px solid var(--color-card-border);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-front {
+  background: var(--color-surface);
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  background: var(--color-bg-3);
+  transform: rotateY(180deg);
+}
+
+.flashcard.flipped .card-front { transform: rotateY(-180deg); }
+.flashcard.flipped .card-back { transform: rotateY(0deg); }
+
+.card-content {
+  padding: var(--space-32);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.card-text {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--space-24);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: pre-line;
+  color: #000000 !important;
+}
+
+.card-back .card-text {
+  font-size: var(--font-size-lg);
+  text-align: left;
+  align-items: flex-start;
+}
+
+.flip-hint {
+  opacity: 0.6;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: auto;
+}
+
+.quiz-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-card-border);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-32);
+  margin-bottom: var(--space-32);
+}
+
+.quiz-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-24);
+  padding-bottom: var(--space-16);
+  border-bottom: 1px solid var(--color-card-border-inner);
+}
+
+.quiz-timer, .quiz-score {
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+}
+
+.quiz-question {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-24);
+  line-height: var(--line-height-normal);
+  color: #000000 !important;
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  margin-bottom: var(--space-24);
+}
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  padding: var(--space-16);
+  background: var(--color-bg-1);
+  border: 2px solid var(--color-card-border);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.quiz-option:hover {
+  background: var(--color-bg-2);
+  border-color: var(--color-primary);
+}
+
+.quiz-option.selected {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
+}
+
+.quiz-option input[type="radio"] {
+  margin-right: var(--space-12);
+  cursor: pointer;
+}
+
+.quiz-option label {
+  flex: 1;
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  color: #000000 !important;
+}
+
+.quiz-option.selected label { color: var(--color-btn-primary-text) !important; }
+
+.quiz-controls {
+  display: flex;
+  gap: var(--space-16);
+  justify-content: center;
+}
+
+.quiz-feedback {
+  margin-top: var(--space-20);
+  padding: var(--space-16);
+  border-radius: var(--radius-base);
+  font-weight: var(--font-weight-medium);
+}
+
+.quiz-feedback.correct {
+  background: var(--color-bg-3);
+  color: var(--color-success);
+  border: 1px solid var(--color-success);
+}
+
+.quiz-feedback.incorrect {
+  background: var(--color-bg-4);
+  color: var(--color-error);
+  border: 1px solid var(--color-error);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+  margin-bottom: var(--space-32);
+}
+
+.nav-controls, .action-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-16);
+  flex-wrap: wrap;
+}
+
+.btn {
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.btn.favorite-active {
+  background: var(--color-warning);
+  color: #000000;
+}
+
+.stats-section {
+  background: var(--color-bg-2);
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  margin-bottom: var(--space-32);
+}
+
+.stats-section h3 {
+  margin-bottom: var(--space-20);
+  text-align: center;
+  color: var(--color-text);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--space-16);
+}
+
+.stat-card {
+  background: var(--color-surface);
+  padding: var(--space-16);
+  border-radius: var(--radius-base);
+  text-align: center;
+  border: 1px solid var(--color-card-border);
+}
+
+.stat-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.instructions {
+  background: var(--color-bg-3);
+  padding: var(--space-24);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-card-border);
+  margin-top: var(--space-32);
+}
+
+.instructions h3 {
+  margin-bottom: var(--space-16);
+  color: var(--color-text);
+}
+
+.instructions ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.instructions li {
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-card-border-inner);
+}
+
+.instructions li:last-child { border-bottom: none; }
+
+.instructions strong {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (max-width: 768px) {
+  .app-header h1 { font-size: var(--font-size-3xl); }
+  .filters-section { grid-template-columns: 1fr; }
+  .flashcard { height: 300px; }
+  .card-content { padding: var(--space-24); }
+  .card-text { font-size: var(--font-size-lg); }
+  .card-back .card-text { font-size: var(--font-size-base); }
+  .progress-info { justify-content: center; text-align: center; }
+  .nav-controls, .action-controls { justify-content: stretch; }
+  .btn { flex: 1; min-width: unset; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 480px) {
+  .flashcard { height: 250px; }
+  .card-content { padding: var(--space-16); }
+  .card-text { font-size: var(--font-size-base); }
+  .card-back .card-text { font-size: var(--font-size-sm); }
+  .controls { gap: var(--space-16); }
+  .quiz-card { padding: var(--space-20); }
+}
+
+.flashcard.changing {
+  opacity: 0.5;
+  transform: scale(0.95);
+  transition: opacity var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
+}
+
+.flashcard:hover {
+  transform: translateY(-2px);
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.flashcard:hover .card-face { box-shadow: var(--shadow-lg); }
+
+.flashcard:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: 4px;
+}
+
+.category-badge.estructura-atomica { background: var(--color-bg-1); border-color: #3b82f6; color: #3b82f6; }
+.category-badge.enlaces-quimicos { background: var(--color-bg-2); border-color: #f59e0b; color: #f59e0b; }
+.category-badge.macromoleculas { background: var(--color-bg-3); border-color: #22c55e; color: #22c55e; }
+.category-badge.proteinas { background: var(--color-bg-4); border-color: #ef4444; color: #ef4444; }
+.category-badge.lipidos { background: var(--color-bg-5); border-color: #8b5cf6; color: #8b5cf6; }
+.category-badge.carbohidratos { background: var(--color-bg-6); border-color: #f97316; color: #f97316; }
+.category-badge.acidos-nucleicos { background: var(--color-bg-7); border-color: #ec4899; color: #ec4899; }
+.category-badge.membranas { background: var(--color-bg-8); border-color: #06b6d4; color: #06b6d4; }
+.category-badge.organelas { background: var(--color-bg-1); border-color: #3b82f6; color: #3b82f6; }
+.category-badge.dominios-de-la-vida { background: var(--color-bg-2); border-color: #f59e0b; color: #f59e0b; }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -14,7 +741,6 @@
         </header>
 
         <main class="app-main">
-            <!-- Mode selector -->
             <div class="mode-selector">
                 <button class="btn btn--primary mode-btn active" id="flashcard-mode" data-mode="flashcard">
                     📚 Tarjetas
@@ -24,7 +750,6 @@
                 </button>
             </div>
 
-            <!-- Category filter -->
             <div class="filters-section">
                 <div class="filter-group">
                     <label for="category-filter" class="form-label">Filtrar por categoría:</label>
@@ -48,7 +773,6 @@
                 </div>
             </div>
 
-            <!-- Progress indicator -->
             <div class="progress-section">
                 <div class="progress-info">
                     <span class="card-counter">Tarjeta <span id="current-card">1</span> de <span id="total-cards">50</span></span>
@@ -59,9 +783,7 @@
                 </div>
             </div>
 
-            <!-- Flashcard mode -->
             <div class="flashcard-mode-content" id="flashcard-content">
-                <!-- Flashcard -->
                 <div class="flashcard-container">
                     <div class="flashcard" id="flashcard">
                         <div class="card-face card-front" id="card-front">
@@ -83,7 +805,6 @@
                     </div>
                 </div>
 
-                <!-- Navigation controls -->
                 <div class="controls">
                     <div class="nav-controls">
                         <button class="btn btn--secondary" id="prev-btn" disabled>
@@ -111,7 +832,6 @@
                 </div>
             </div>
 
-            <!-- Quiz mode -->
             <div class="quiz-mode-content hidden" id="quiz-content">
                 <div class="quiz-card">
                     <div class="quiz-header">
@@ -119,9 +839,7 @@
                         <div class="quiz-score">Puntos: <span id="quiz-score">0</span></div>
                     </div>
                     <div class="quiz-question" id="quiz-question">Pregunta del quiz aparecerá aquí</div>
-                    <div class="quiz-options" id="quiz-options">
-                        <!-- Options will be populated by JavaScript -->
-                    </div>
+                    <div class="quiz-options" id="quiz-options"></div>
                     <div class="quiz-controls">
                         <button class="btn btn--primary" id="submit-answer" disabled>
                             Enviar Respuesta
@@ -134,7 +852,6 @@
                 </div>
             </div>
 
-            <!-- Statistics -->
             <div class="stats-section">
                 <h3>📊 Estadísticas</h3>
                 <div class="stats-grid">
@@ -157,7 +874,6 @@
                 </div>
             </div>
 
-            <!-- Instructions -->
             <div class="instructions">
                 <h3>🎯 Instrucciones:</h3>
                 <ul>
@@ -172,7 +888,465 @@
         </main>
     </div>
 
-    <script src="/js/app.js"></script>
-</body>
+    <script>
+const flashcardsData = [
+    { id: 1, category: "Estructura Atómica", front: "¿Qué es un átomo?", back: "Unidad básica de la materia con protones, neutrones y electrones." },
+    { id: 2, category: "Estructura Atómica", front: "Carga de un protón", back: "+1 (positiva)." },
+    { id: 3, category: "Estructura Atómica", front: "¿Dónde se encuentran los electrones?", back: "En los niveles de energía alrededor del núcleo." },
+    { id: 4, category: "Estructura Atómica", front: "Elemento más abundante en el universo", back: "Hidrógeno." },
+    { id: 5, category: "Estructura Atómica", front: "Número atómico", back: "Cantidad de protones en el núcleo." },
+    { id: 6, category: "Enlaces Químicos", front: "Enlace iónico", back: "Transferencia de electrones entre átomos con gran diferencia de electronegatividad." },
+    { id: 7, category: "Enlaces Químicos", front: "Ejemplo de molécula con enlace covalente no polar", back: "Molécula de oxígeno O₂." },
+    { id: 8, category: "Enlaces Químicos", front: "Fuerzas de Van der Waals", back: "Interacciones débiles debidas a dipolos instantáneos." },
+    { id: 9, category: "Enlaces Químicos", front: "Ángulo del enlace en el agua", back: "104.5°." },
+    { id: 10, category: "Enlaces Químicos", front: "Enlace de hidrógeno en ADN", back: "Une las bases nitrogenadas complementarias." },
+    { id: 11, category: "Macromoléculas", front: "Reacción de hidrólisis", back: "Rompe polímeros añadiendo agua." },
+    { id: 12, category: "Macromoléculas", front: "Ejemplo de polímero de aminoácidos", back: "Proteína." },
+    { id: 13, category: "Macromoléculas", front: "Nombre del enlace entre nucleótidos", back: "Enlace fosfodiéster." },
+    { id: 14, category: "Macromoléculas", front: "Monómero de los carbohidratos", back: "Monosacárido, p.ej. glucosa." },
+    { id: 15, category: "Macromoléculas", front: "Función principal de los polisacáridos estructurales", back: "Soporte y protección (ej. celulosa)." },
+    { id: 16, category: "Proteínas", front: "Estructura secundaria típica", back: "α-hélice." },
+    { id: 17, category: "Proteínas", front: "Ejemplo de proteína transportadora", back: "Hemoglobina." },
+    { id: 18, category: "Proteínas", front: "Aminoácido con grupo azufre", back: "Cisteína o Metionina." },
+    { id: 19, category: "Proteínas", front: "Denaturación", back: "Pérdida de la estructura tridimensional." },
+    { id: 20, category: "Proteínas", front: "Enzima digestiva del estómago", back: "Pepsina." },
+    { id: 21, category: "Lípidos", front: "Triglicérido", back: "Glicerol + 3 ácidos grasos." },
+    { id: 22, category: "Lípidos", front: "Lípido componente de membranas", back: "Fosfolípido." },
+    { id: 23, category: "Lípidos", front: "Esteroles importantes en animales", back: "Colesterol." },
+    { id: 24, category: "Lípidos", front: "Lípido responsable de impermeabilidad en hojas", back: "Ceras." },
+    { id: 25, category: "Lípidos", front: "Función de los lípidos grasos marrones", back: "Producción de calor en animales." },
+    { id: 26, category: "Carbohidratos", front: "Disacárido común en leche", back: "Lactosa." },
+    { id: 27, category: "Carbohidratos", front: "Polisacárido de almacenamiento en plantas", back: "Almidón." },
+    { id: 28, category: "Carbohidratos", front: "Enzima que hidroliza almidón", back: "Amilasa." },
+    { id: 29, category: "Carbohidratos", front: "Polisacárido de reserva animal", back: "Glucógeno." },
+    { id: 30, category: "Carbohidratos", front: "Función estructural de la quitina", back: "Forma el exoesqueleto de artrópodos." },
+    { id: 31, category: "Ácidos Nucleicos", front: "Base exclusiva del ARN", back: "Uracilo." },
+    { id: 32, category: "Ácidos Nucleicos", front: "Tipo de enlace entre A-T", back: "Dos puentes de hidrógeno." },
+    { id: 33, category: "Ácidos Nucleicos", front: "Galardonados por el modelo del ADN", back: "Watson y Crick." },
+    { id: 34, category: "Ácidos Nucleicos", front: "Síntesis de ARN a partir de ADN", back: "Transcripción." },
+    { id: 35, category: "Ácidos Nucleicos", front: "Proceso que convierte ARN en proteína", back: "Traducción." },
+    { id: 36, category: "Membranas", front: "Modelo de mosaico fluido", back: "Describe la bicapa como fluida con proteínas incrustadas." },
+    { id: 37, category: "Membranas", front: "Ejemplo de transporte pasivo", back: "Difusión simple de O₂." },
+    { id: 38, category: "Membranas", front: "Bomba sodio-potasio intercambia", back: "3 Na⁺ fuera, 2 K⁺ dentro con gasto de ATP." },
+    { id: 39, category: "Membranas", front: "Pinocitosis", back: "Ingreso de líquidos mediante vesículas pequeñas." },
+    { id: 40, category: "Membranas", front: "Proteína canal de agua", back: "Aquaporina." },
+    { id: 41, category: "Organelas", front: "Función principal del aparato de Golgi", back: "Modifica y empaqueta proteínas." },
+    { id: 42, category: "Organelas", front: "Organelo con ADN propio aparte del núcleo", back: "Mitocondria." },
+    { id: 43, category: "Organelas", front: "Organelo exclusivo de plantas para fotosíntesis", back: "Cloroplasto." },
+    { id: 44, category: "Organelas", front: "Lugar donde ocurre la traducción", back: "Ribosoma." },
+    { id: 45, category: "Organelas", front: "Organelo encargado de detoxificación", back: "Retículo endoplásmico liso." },
+    { id: 46, category: "Dominios de la Vida", front: "Dominio con peptidoglucano", back: "Bacteria." },
+    { id: 47, category: "Dominios de la Vida", front: "Dominio con histonas pero sin núcleo", back: "Archaea." },
+    { id: 48, category: "Dominios de la Vida", front: "Dominio con organelos membranosos", back: "Eukarya." },
+    { id: 49, category: "Dominios de la Vida", front: "Iniciador de traducción en Archaea", back: "Metionina." },
+    { id: 50, category: "Dominios de la Vida", front: "Temperaturas >100°C toleradas por", back: "Algunas especies de Archaea." }
+];
 
-</html>
+let currentMode = 'flashcard';
+let currentCardIndex = 0;
+let isFlipped = false;
+let flashcards = [...flashcardsData];
+let filteredCards = [...flashcardsData];
+let favorites = new Set();
+let studiedCards = new Set();
+let quizState = {
+    currentQuestion: 0,
+    score: 0,
+    totalQuestions: 10,
+    questions: [],
+    selectedAnswer: null,
+    answered: false,
+    startTime: null,
+    timeElapsed: 0
+};
+let studyStartTime = Date.now();
+let timerInterval = null;
+
+const flashcardModeBtn = document.getElementById('flashcard-mode');
+const quizModeBtn = document.getElementById('quiz-mode');
+const flashcardContent = document.getElementById('flashcard-content');
+const quizContent = document.getElementById('quiz-content');
+const categoryFilter = document.getElementById('category-filter');
+const searchInput = document.getElementById('search-input');
+const flashcard = document.getElementById('flashcard');
+const frontText = document.getElementById('front-text');
+const backText = document.getElementById('back-text');
+const currentCardElement = document.getElementById('current-card');
+const totalCardsElement = document.getElementById('total-cards');
+const categoryBadge = document.getElementById('category-badge');
+const progressFill = document.getElementById('progress-fill');
+const prevBtn = document.getElementById('prev-btn');
+const nextBtn = document.getElementById('next-btn');
+const flipBtn = document.getElementById('flip-btn');
+const favoriteBtn = document.getElementById('favorite-btn');
+const shuffleBtn = document.getElementById('shuffle-btn');
+const resetBtn = document.getElementById('reset-btn');
+const quizTimer = document.getElementById('quiz-timer');
+const quizScore = document.getElementById('quiz-score');
+const quizQuestion = document.getElementById('quiz-question');
+const quizOptions = document.getElementById('quiz-options');
+const submitAnswer = document.getElementById('submit-answer');
+const nextQuiz = document.getElementById('next-quiz');
+const quizFeedback = document.getElementById('quiz-feedback');
+const totalStudiedEl = document.getElementById('total-studied');
+const favoritesCountEl = document.getElementById('favorites-count');
+const quizAccuracyEl = document.getElementById('quiz-accuracy');
+const studyTimeEl = document.getElementById('study-time');
+
+function init() {
+    attachEventListeners();
+    updateMode();
+    updateCard();
+    updateStats();
+    startStudyTimer();
+}
+
+function attachEventListeners() {
+    flashcardModeBtn.addEventListener('click', () => switchMode('flashcard'));
+    quizModeBtn.addEventListener('click', () => switchMode('quiz'));
+    categoryFilter.addEventListener('change', applyFilters);
+    searchInput.addEventListener('input', applyFilters);
+    flashcard.addEventListener('click', flipCard);
+    prevBtn.addEventListener('click', prevCard);
+    nextBtn.addEventListener('click', nextCard);
+    flipBtn.addEventListener('click', flipCard);
+    favoriteBtn.addEventListener('click', toggleFavorite);
+    shuffleBtn.addEventListener('click', shuffleCards);
+    resetBtn.addEventListener('click', resetCards);
+    submitAnswer.addEventListener('click', submitQuizAnswer);
+    nextQuiz.addEventListener('click', nextQuizQuestion);
+    document.addEventListener('keydown', handleKeydown);
+    flashcard.setAttribute('tabindex', '0');
+    flashcard.setAttribute('role', 'button');
+    flashcard.setAttribute('aria-label', 'Presiona para voltear la tarjeta');
+}
+
+function switchMode(mode) {
+    currentMode = mode;
+    updateMode();
+    if (mode === 'quiz') startQuiz();
+}
+
+function updateMode() {
+    if (currentMode === 'flashcard') {
+        flashcardModeBtn.classList.add('active', 'btn--primary');
+        flashcardModeBtn.classList.remove('btn--outline');
+        quizModeBtn.classList.remove('active', 'btn--primary');
+        quizModeBtn.classList.add('btn--outline');
+        flashcardContent.classList.remove('hidden');
+        quizContent.classList.add('hidden');
+    } else {
+        quizModeBtn.classList.add('active', 'btn--primary');
+        quizModeBtn.classList.remove('btn--outline');
+        flashcardModeBtn.classList.remove('active', 'btn--primary');
+        flashcardModeBtn.classList.add('btn--outline');
+        flashcardContent.classList.add('hidden');
+        quizContent.classList.remove('hidden');
+    }
+}
+
+function applyFilters() {
+    const category = categoryFilter.value;
+    const searchTerm = searchInput.value.toLowerCase();
+    filteredCards = flashcardsData.filter(card => {
+        const matchesCategory = !category || card.category === category;
+        const matchesSearch = !searchTerm || card.front.toLowerCase().includes(searchTerm) || card.back.toLowerCase().includes(searchTerm);
+        return matchesCategory && matchesSearch;
+    });
+    if (filteredCards.length === 0) {
+        showFeedback('❌ No se encontraron tarjetas');
+        return;
+    }
+    flashcards = [...filteredCards];
+    currentCardIndex = 0;
+    updateCard();
+    showFeedback(`🔍 ${filteredCards.length} tarjetas encontradas`);
+}
+
+function updateCard() {
+    if (flashcards.length === 0) return;
+    const card = flashcards[currentCardIndex];
+    flashcard.classList.remove('flipped');
+    isFlipped = false;
+    flashcard.classList.add('changing');
+    setTimeout(() => {
+        frontText.textContent = card.front;
+        frontText.style.color = '#000000';
+        backText.textContent = card.back;
+        backText.style.color = '#000000';
+        currentCardElement.textContent = currentCardIndex + 1;
+        totalCardsElement.textContent = flashcards.length;
+        categoryBadge.textContent = card.category;
+        updateCategoryBadge(card.category);
+        updateProgress();
+        updateButtons();
+        updateFavoriteButton(card.id);
+        flashcard.classList.remove('changing');
+        studiedCards.add(card.id);
+        updateStats();
+    }, 150);
+}
+
+function updateCategoryBadge(category) {
+    categoryBadge.className = 'category-badge';
+    const categoryClass = category.toLowerCase().replace(/\s+/g, '-').replace(/ó/g, 'o').replace(/í/g, 'i').replace(/á/g, 'a').replace(/é/g, 'e');
+    categoryBadge.classList.add(categoryClass);
+}
+
+function updateProgress() {
+    const progress = ((currentCardIndex + 1) / flashcards.length) * 100;
+    progressFill.style.width = `${progress}%`;
+}
+
+function updateButtons() {
+    prevBtn.disabled = currentCardIndex === 0;
+    nextBtn.disabled = currentCardIndex === flashcards.length - 1;
+}
+
+function updateFavoriteButton(cardId) {
+    if (favorites.has(cardId)) {
+        favoriteBtn.classList.add('favorite-active');
+        favoriteBtn.textContent = '⭐ Favorito';
+    } else {
+        favoriteBtn.classList.remove('favorite-active');
+        favoriteBtn.textContent = '☆ Favorito';
+    }
+}
+
+function flipCard() {
+    isFlipped = !isFlipped;
+    flashcard.classList.toggle('flipped', isFlipped);
+}
+
+function prevCard() {
+    if (currentCardIndex > 0) {
+        currentCardIndex--;
+        updateCard();
+    }
+}
+
+function nextCard() {
+    if (currentCardIndex < flashcards.length - 1) {
+        currentCardIndex++;
+        updateCard();
+    }
+}
+
+function toggleFavorite() {
+    const cardId = flashcards[currentCardIndex].id;
+    if (favorites.has(cardId)) {
+        favorites.delete(cardId);
+        showFeedback('💔 Removido de favoritos');
+    } else {
+        favorites.add(cardId);
+        showFeedback('⭐ Agregado a favoritos');
+    }
+    updateFavoriteButton(cardId);
+    updateStats();
+}
+
+function shuffleCards() {
+    for (let i = flashcards.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+    }
+    currentCardIndex = 0;
+    updateCard();
+    showFeedback('🔀 Tarjetas mezcladas');
+}
+
+function resetCards() {
+    flashcards = [...filteredCards];
+    currentCardIndex = 0;
+    updateCard();
+    showFeedback('🔄 Orden original restaurado');
+}
+
+function startQuiz() {
+    const shuffledCards = [...flashcards].sort(() => Math.random() - 0.5);
+    quizState.questions = shuffledCards.slice(0, Math.min(10, shuffledCards.length));
+    quizState.currentQuestion = 0;
+    quizState.score = 0;
+    quizState.answered = false;
+    quizState.startTime = Date.now();
+    if (timerInterval) clearInterval(timerInterval);
+    timerInterval = setInterval(updateQuizTimer, 1000);
+    showQuizQuestion();
+}
+
+function showQuizQuestion() {
+    if (quizState.currentQuestion >= quizState.questions.length) {
+        endQuiz();
+        return;
+    }
+    const question = quizState.questions[quizState.currentQuestion];
+    const allOptions = [...flashcardsData].filter(card => card.category === question.category);
+    const wrongAnswers = allOptions.filter(card => card.id !== question.id).sort(() => Math.random() - 0.5).slice(0, 3).map(card => card.back);
+    const options = [...wrongAnswers, question.back].sort(() => Math.random() - 0.5);
+    quizQuestion.textContent = question.front;
+    quizQuestion.style.color = '#000000';
+    quizScore.textContent = quizState.score;
+    quizOptions.innerHTML = '';
+    options.forEach((option, index) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'quiz-option';
+        optionDiv.innerHTML = `<input type="radio" name="quiz-answer" value="${option}" id="option-${index}"><label for="option-${index}" style="color: #000000 !important;">${option}</label>`;
+        optionDiv.addEventListener('click', () => selectQuizOption(optionDiv, option));
+        quizOptions.appendChild(optionDiv);
+    });
+    quizState.selectedAnswer = null;
+    quizState.answered = false;
+    submitAnswer.disabled = true;
+    nextQuiz.disabled = true;
+    quizFeedback.classList.add('hidden');
+}
+
+function selectQuizOption(optionDiv, answer) {
+    document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+    optionDiv.classList.add('selected');
+    optionDiv.querySelector('input').checked = true;
+    quizState.selectedAnswer = answer;
+    submitAnswer.disabled = false;
+}
+
+function submitQuizAnswer() {
+    if (!quizState.selectedAnswer || quizState.answered) return;
+    const question = quizState.questions[quizState.currentQuestion];
+    const isCorrect = quizState.selectedAnswer === question.back;
+    if (isCorrect) {
+        quizState.score++;
+        quizFeedback.textContent = '✅ ¡Correcto!';
+        quizFeedback.className = 'quiz-feedback correct';
+    } else {
+        quizFeedback.textContent = `❌ Incorrecto. La respuesta correcta es: ${question.back}`;
+        quizFeedback.className = 'quiz-feedback incorrect';
+    }
+    quizFeedback.classList.remove('hidden');
+    quizState.answered = true;
+    submitAnswer.disabled = true;
+    nextQuiz.disabled = false;
+    document.querySelectorAll('.quiz-option').forEach(opt => opt.style.pointerEvents = 'none');
+}
+
+function nextQuizQuestion() {
+    quizState.currentQuestion++;
+    showQuizQuestion();
+}
+
+function endQuiz() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    const accuracy = Math.round((quizState.score / quizState.questions.length) * 100);
+    const timeElapsed = Math.floor((Date.now() - quizState.startTime) / 1000);
+    quizQuestion.textContent = '🎉 ¡Quiz Completado!';
+    quizOptions.innerHTML = `<div style="text-align: center; padding: 20px;"><h3 style="color: #000000;">Resultados</h3><p style="color: #000000;"><strong>Puntuación:</strong> ${quizState.score}/${quizState.questions.length}</p><p style="color: #000000;"><strong>Precisión:</strong> ${accuracy}%</p><p style="color: #000000;"><strong>Tiempo:</strong> ${formatTime(timeElapsed)}</p></div>`;
+    submitAnswer.style.display = 'none';
+    nextQuiz.textContent = '🔄 Nuevo Quiz';
+    nextQuiz.disabled = false;
+    nextQuiz.onclick = startQuiz;
+    quizFeedback.classList.add('hidden');
+    updateStats();
+}
+
+function updateQuizTimer() {
+    if (!quizState.startTime) return;
+    const elapsed = Math.floor((Date.now() - quizState.startTime) / 1000);
+    quizTimer.textContent = `⏱️ ${formatTime(elapsed)}`;
+}
+
+function updateStats() {
+    totalStudiedEl.textContent = studiedCards.size;
+    favoritesCountEl.textContent = favorites.size;
+    const totalQuizzes = parseInt(quizAccuracyEl.textContent.replace('%', '')) || 0;
+    if (quizState.questions.length > 0 && quizState.answered) {
+        const accuracy = Math.round((quizState.score / quizState.questions.length) * 100);
+        quizAccuracyEl.textContent = `${accuracy}%`;
+    }
+}
+
+function startStudyTimer() {
+    setInterval(() => {
+        const elapsed = Math.floor((Date.now() - studyStartTime) / 1000);
+        studyTimeEl.textContent = formatTime(elapsed);
+    }, 1000);
+}
+
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
+function handleKeydown(event) {
+    const handledKeys = [' ', 'ArrowLeft', 'ArrowRight', 'Enter', 'm', 'M', 'r', 'R', 'f', 'F', 'q', 'Q'];
+    if (handledKeys.includes(event.key)) event.preventDefault();
+    if (currentMode === 'flashcard') {
+        switch (event.key) {
+            case ' ':
+            case 'Enter':
+                flipCard();
+                break;
+            case 'ArrowLeft':
+                prevCard();
+                break;
+            case 'ArrowRight':
+                nextCard();
+                break;
+            case 'f':
+            case 'F':
+                toggleFavorite();
+                break;
+            case 'm':
+            case 'M':
+                shuffleCards();
+                break;
+            case 'r':
+            case 'R':
+                resetCards();
+                break;
+            case 'q':
+            case 'Q':
+                switchMode('quiz');
+                break;
+        }
+    }
+}
+
+function showFeedback(message) {
+    const feedback = document.createElement('div');
+    feedback.textContent = message;
+    feedback.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--color-primary);
+        color: var(--color-btn-primary-text);
+        padding: 12px 16px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 500;
+        z-index: 1000;
+        animation: slideIn 0.3s ease-out;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    `;
+    if (!document.getElementById('feedback-styles')) {
+        const style = document.createElement('style');
+        style.id = 'feedback-styles';
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    document.body.appendChild(feedback);
+    setTimeout(() => {
+        if (feedback.parentNode) feedback.remove();
+    }, 2000);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+    </script>
