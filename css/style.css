@@ -496,7 +496,7 @@ body {
     font-weight: 700;
     margin-bottom: 28px;
     line-height: 1.4;
-    color: #000000 !important;
+    color: #2d1b26 !important;
 }
 
 .quiz-options {
@@ -542,7 +542,7 @@ body {
     flex: 1;
     cursor: pointer;
     font-size: 1.05rem;
-    color: #000000 !important;
+    color: #2d1b26 !important;
     font-weight: 500;
 }
 
