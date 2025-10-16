@@ -412,7 +412,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #000000 !important;
+    color: #2d1b26 !important;
     font-weight: 600;
     white-space: pre-line;
 }
@@ -422,6 +422,7 @@ body {
     text-align: left;
     align-items: flex-start;
     font-weight: 500;
+    color: #2d1b26 !important;
 }
 
 .flip-hint {

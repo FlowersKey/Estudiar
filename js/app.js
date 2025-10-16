@@ -590,14 +590,20 @@ function showFeedback(message, type = 'info') {
     
     document.body.appendChild(feedback);
     
-    setTimeout(() => {
-        feedback.style.animation = 'slideOut 0.3s ease-out';
-        setTimeout(() => {
-            if (feedback.parentNode) {
-                feedback.remove();
-            }
-        }, 300);
-    }, 2500);
+     setTimeout(() => {
+        frontText.textContent = card.front;
+        backText.textContent = card.back;
+        currentCardElement.textContent = currentCardIndex + 1;
+        totalCardsElement.textContent = flashcards.length;
+        categoryBadge.textContent = card.category;
+        updateCategoryBadge(card.category);
+        updateProgress();
+        updateButtons();
+        updateFavoriteButton(card.id);
+        flashcard.classList.remove('changing');
+        studiedCards.add(card.id);
+        updateStats();
+    }, 150);
 }
 
 // ========================================
