@@ -1,4 +1,6 @@
-// Complete flashcard data - 50 cards total (5 per category)
+// ========================================
+// DATOS DE FLASHCARDS - 60 tarjetas totales
+// ========================================
 const flashcardsData = [
     // Estructura Atómica (5 cards)
     { id: 1, category: "Estructura Atómica", front: "¿Qué es un átomo?", back: "Unidad básica de la materia con protones, neutrones y electrones." },
@@ -68,10 +70,24 @@ const flashcardsData = [
     { id: 47, category: "Dominios de la Vida", front: "Dominio con histonas pero sin núcleo", back: "Archaea." },
     { id: 48, category: "Dominios de la Vida", front: "Dominio con organelos membranosos", back: "Eukarya." },
     { id: 49, category: "Dominios de la Vida", front: "Iniciador de traducción en Archaea", back: "Metionina." },
-    { id: 50, category: "Dominios de la Vida", front: "Temperaturas >100°C toleradas por", back: "Algunas especies de Archaea." }
+    { id: 50, category: "Dominios de la Vida", front: "Temperaturas >100°C toleradas por", back: "Algunas especies de Archaea." },
+
+    // Membrana Plasmática (10 cards NUEVAS)
+    { id: 51, category: "Membrana Plasmática", front: "¿Qué estructura forma la membrana plasmática?", back: "Bicapa de fosfolípidos." },
+    { id: 52, category: "Membrana Plasmática", front: "Función de los fosfolípidos en la membrana", back: "Crear una barrera que separa el citoplasma del exterior celular y delimitar la célula." },
+    { id: 53, category: "Membrana Plasmática", front: "Función del colesterol en la membrana", back: "Aumentar la resistencia de la célula, especialmente ante cambios de temperatura." },
+    { id: 54, category: "Membrana Plasmática", front: "Función de las proteínas de membrana", back: "Permitir el transporte de sustancias del interior al exterior de la célula o viceversa." },
+    { id: 55, category: "Membrana Plasmática", front: "Diferencia entre difusión simple y facilitada", back: "Simple: moléculas pequeñas pasan por fosfolípidos. Facilitada: moléculas grandes necesitan proteínas (canal o transporte)." },
+    { id: 56, category: "Membrana Plasmática", front: "¿Qué es la ósmosis?", back: "Difusión de agua (H₂O) a través de la membrana, puede ocurrir por difusión simple o facilitada." },
+    { id: 57, category: "Membrana Plasmática", front: "Diferencia entre transporte pasivo y activo", back: "Pasivo: no consume energía, va a favor del gradiente (mayor→menor). Activo: consume energía, va contra el gradiente (menor→mayor)." },
+    { id: 58, category: "Membrana Plasmática", front: "¿Qué son las proteínas bomba?", back: "Moléculas del transporte activo que rompen ATP para conseguir el paso de sustancias al interior celular." },
+    { id: 59, category: "Membrana Plasmática", front: "Diferencia entre pinocitosis y fagocitosis", back: "Pinocitosis: endocitosis de sustancias líquidas. Fagocitosis: endocitosis de sustancias sólidas." },
+    { id: 60, category: "Membrana Plasmática", front: "¿Qué es la exocitosis?", back: "Proceso inverso a la endocitosis, donde la vesícula expulsa sustancias hacia el exterior de la célula." }
 ];
 
-// App state
+// ========================================
+// ESTADO DE LA APLICACIÓN
+// ========================================
 let currentMode = 'flashcard';
 let currentCardIndex = 0;
 let isFlipped = false;
@@ -86,21 +102,20 @@ let quizState = {
     questions: [],
     selectedAnswer: null,
     answered: false,
-    startTime: null,
-    timeElapsed: 0
+    startTime: null
 };
 let studyStartTime = Date.now();
 let timerInterval = null;
 
-// DOM elements
+// ========================================
+// ELEMENTOS DEL DOM
+// ========================================
 const flashcardModeBtn = document.getElementById('flashcard-mode');
 const quizModeBtn = document.getElementById('quiz-mode');
 const flashcardContent = document.getElementById('flashcard-content');
 const quizContent = document.getElementById('quiz-content');
 const categoryFilter = document.getElementById('category-filter');
 const searchInput = document.getElementById('search-input');
-
-// Flashcard elements
 const flashcard = document.getElementById('flashcard');
 const frontText = document.getElementById('front-text');
 const backText = document.getElementById('back-text');
@@ -114,8 +129,6 @@ const flipBtn = document.getElementById('flip-btn');
 const favoriteBtn = document.getElementById('favorite-btn');
 const shuffleBtn = document.getElementById('shuffle-btn');
 const resetBtn = document.getElementById('reset-btn');
-
-// Quiz elements
 const quizTimer = document.getElementById('quiz-timer');
 const quizScore = document.getElementById('quiz-score');
 const quizQuestion = document.getElementById('quiz-question');
@@ -123,14 +136,14 @@ const quizOptions = document.getElementById('quiz-options');
 const submitAnswer = document.getElementById('submit-answer');
 const nextQuiz = document.getElementById('next-quiz');
 const quizFeedback = document.getElementById('quiz-feedback');
-
-// Stats elements
 const totalStudiedEl = document.getElementById('total-studied');
 const favoritesCountEl = document.getElementById('favorites-count');
 const quizAccuracyEl = document.getElementById('quiz-accuracy');
 const studyTimeEl = document.getElementById('study-time');
 
-// Initialize app
+// ========================================
+// INICIALIZACIÓN
+// ========================================
 function init() {
     attachEventListeners();
     updateMode();
@@ -139,17 +152,14 @@ function init() {
     startStudyTimer();
 }
 
-// Event listeners
+// ========================================
+// EVENT LISTENERS
+// ========================================
 function attachEventListeners() {
-    // Mode switching
     flashcardModeBtn.addEventListener('click', () => switchMode('flashcard'));
     quizModeBtn.addEventListener('click', () => switchMode('quiz'));
-
-    // Filters
     categoryFilter.addEventListener('change', applyFilters);
     searchInput.addEventListener('input', applyFilters);
-
-    // Flashcard controls
     flashcard.addEventListener('click', flipCard);
     prevBtn.addEventListener('click', prevCard);
     nextBtn.addEventListener('click', nextCard);
@@ -157,57 +167,41 @@ function attachEventListeners() {
     favoriteBtn.addEventListener('click', toggleFavorite);
     shuffleBtn.addEventListener('click', shuffleCards);
     resetBtn.addEventListener('click', resetCards);
-
-    // Quiz controls
     submitAnswer.addEventListener('click', submitQuizAnswer);
     nextQuiz.addEventListener('click', nextQuizQuestion);
-
-    // Keyboard navigation
     document.addEventListener('keydown', handleKeydown);
-
-    // Make flashcard focusable
-    flashcard.setAttribute('tabindex', '0');
-    flashcard.setAttribute('role', 'button');
-    flashcard.setAttribute('aria-label', 'Presiona para voltear la tarjeta');
 }
 
-// Mode switching
+// ========================================
+// CAMBIO DE MODO
+// ========================================
 function switchMode(mode) {
     currentMode = mode;
     updateMode();
-    
-    if (mode === 'quiz') {
-        startQuiz();
-    }
+    if (mode === 'quiz') startQuiz();
 }
 
 function updateMode() {
     if (currentMode === 'flashcard') {
-        flashcardModeBtn.classList.add('active');
+        flashcardModeBtn.classList.add('active', 'btn--primary');
         flashcardModeBtn.classList.remove('btn--outline');
-        flashcardModeBtn.classList.add('btn--primary');
-        
-        quizModeBtn.classList.remove('active');
-        quizModeBtn.classList.remove('btn--primary');
+        quizModeBtn.classList.remove('active', 'btn--primary');
         quizModeBtn.classList.add('btn--outline');
-        
         flashcardContent.classList.remove('hidden');
         quizContent.classList.add('hidden');
     } else {
-        quizModeBtn.classList.add('active');
+        quizModeBtn.classList.add('active', 'btn--primary');
         quizModeBtn.classList.remove('btn--outline');
-        quizModeBtn.classList.add('btn--primary');
-        
-        flashcardModeBtn.classList.remove('active');
-        flashcardModeBtn.classList.remove('btn--primary');
+        flashcardModeBtn.classList.remove('active', 'btn--primary');
         flashcardModeBtn.classList.add('btn--outline');
-        
         flashcardContent.classList.add('hidden');
         quizContent.classList.remove('hidden');
     }
 }
 
-// Filtering
+// ========================================
+// FILTRADO
+// ========================================
 function applyFilters() {
     const category = categoryFilter.value;
     const searchTerm = searchInput.value.toLowerCase();
@@ -217,42 +211,34 @@ function applyFilters() {
         const matchesSearch = !searchTerm || 
             card.front.toLowerCase().includes(searchTerm) ||
             card.back.toLowerCase().includes(searchTerm);
-        
         return matchesCategory && matchesSearch;
     });
     
     if (filteredCards.length === 0) {
-        showFeedback('❌ No se encontraron tarjetas');
+        showFeedback('❌ No se encontraron tarjetas', 'error');
         return;
     }
     
     flashcards = [...filteredCards];
     currentCardIndex = 0;
     updateCard();
-    showFeedback(`🔍 ${filteredCards.length} tarjetas encontradas`);
+    showFeedback(`🔍 ${filteredCards.length} tarjetas encontradas`, 'success');
 }
 
-// Flashcard functions
+// ========================================
+// FUNCIONES DE FLASHCARD
+// ========================================
 function updateCard() {
     if (flashcards.length === 0) return;
     
     const card = flashcards[currentCardIndex];
-    
-    // Reset flip state
     flashcard.classList.remove('flipped');
     isFlipped = false;
-    
-    // Add changing animation
     flashcard.classList.add('changing');
     
     setTimeout(() => {
-        // Update content - ensure black text
         frontText.textContent = card.front;
-        frontText.style.color = '#000000';
         backText.textContent = card.back;
-        backText.style.color = '#000000';
-        
-        // Update UI
         currentCardElement.textContent = currentCardIndex + 1;
         totalCardsElement.textContent = flashcards.length;
         categoryBadge.textContent = card.category;
@@ -260,11 +246,7 @@ function updateCard() {
         updateProgress();
         updateButtons();
         updateFavoriteButton(card.id);
-        
-        // Remove changing animation
         flashcard.classList.remove('changing');
-        
-        // Mark as studied
         studiedCards.add(card.id);
         updateStats();
     }, 150);
@@ -274,10 +256,8 @@ function updateCategoryBadge(category) {
     categoryBadge.className = 'category-badge';
     const categoryClass = category.toLowerCase()
         .replace(/\s+/g, '-')
-        .replace(/ó/g, 'o')
-        .replace(/í/g, 'i')
-        .replace(/á/g, 'a')
-        .replace(/é/g, 'e');
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
     categoryBadge.classList.add(categoryClass);
 }
 
@@ -324,10 +304,10 @@ function toggleFavorite() {
     const cardId = flashcards[currentCardIndex].id;
     if (favorites.has(cardId)) {
         favorites.delete(cardId);
-        showFeedback('💔 Removido de favoritos');
+        showFeedback('💔 Removido de favoritos', 'info');
     } else {
         favorites.add(cardId);
-        showFeedback('⭐ Agregado a favoritos');
+        showFeedback('⭐ Agregado a favoritos', 'success');
     }
     updateFavoriteButton(cardId);
     updateStats();
@@ -340,19 +320,20 @@ function shuffleCards() {
     }
     currentCardIndex = 0;
     updateCard();
-    showFeedback('🔀 Tarjetas mezcladas');
+    showFeedback('🔀 Tarjetas mezcladas', 'success');
 }
 
 function resetCards() {
     flashcards = [...filteredCards];
     currentCardIndex = 0;
     updateCard();
-    showFeedback('🔄 Orden original restaurado');
+    showFeedback('🔄 Orden original restaurado', 'success');
 }
 
-// Quiz functions
+// ========================================
+// FUNCIONES DE QUIZ
+// ========================================
 function startQuiz() {
-    // Generate random questions
     const shuffledCards = [...flashcards].sort(() => Math.random() - 0.5);
     quizState.questions = shuffledCards.slice(0, Math.min(10, shuffledCards.length));
     quizState.currentQuestion = 0;
@@ -375,7 +356,6 @@ function showQuizQuestion() {
     const question = quizState.questions[quizState.currentQuestion];
     const allOptions = [...flashcardsData].filter(card => card.category === question.category);
     
-    // Get 3 wrong answers and 1 correct answer
     const wrongAnswers = allOptions
         .filter(card => card.id !== question.id)
         .sort(() => Math.random() - 0.5)
@@ -384,26 +364,21 @@ function showQuizQuestion() {
     
     const options = [...wrongAnswers, question.back].sort(() => Math.random() - 0.5);
     
-    // Update UI - ensure black text
     quizQuestion.textContent = question.front;
-    quizQuestion.style.color = '#000000';
     quizScore.textContent = quizState.score;
     
-    // Create options
     quizOptions.innerHTML = '';
     options.forEach((option, index) => {
         const optionDiv = document.createElement('div');
         optionDiv.className = 'quiz-option';
         optionDiv.innerHTML = `
             <input type="radio" name="quiz-answer" value="${option}" id="option-${index}">
-            <label for="option-${index}" style="color: #000000 !important;">${option}</label>
+            <label for="option-${index}">${option}</label>
         `;
-        
         optionDiv.addEventListener('click', () => selectQuizOption(optionDiv, option));
         quizOptions.appendChild(optionDiv);
     });
     
-    // Reset state
     quizState.selectedAnswer = null;
     quizState.answered = false;
     submitAnswer.disabled = true;
@@ -412,15 +387,9 @@ function showQuizQuestion() {
 }
 
 function selectQuizOption(optionDiv, answer) {
-    // Remove previous selection
-    document.querySelectorAll('.quiz-option').forEach(opt => {
-        opt.classList.remove('selected');
-    });
-    
-    // Select current option
+    document.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
     optionDiv.classList.add('selected');
     optionDiv.querySelector('input').checked = true;
-    
     quizState.selectedAnswer = answer;
     submitAnswer.disabled = false;
 }
@@ -445,7 +414,6 @@ function submitQuizAnswer() {
     submitAnswer.disabled = true;
     nextQuiz.disabled = false;
     
-    // Disable all options
     document.querySelectorAll('.quiz-option').forEach(opt => {
         opt.style.pointerEvents = 'none';
     });
@@ -466,19 +434,35 @@ function endQuiz() {
     const timeElapsed = Math.floor((Date.now() - quizState.startTime) / 1000);
     
     quizQuestion.textContent = '🎉 ¡Quiz Completado!';
+    quizQuestion.style.color = 'var(--color-text)';
     quizOptions.innerHTML = `
-        <div style="text-align: center; padding: 20px;">
-            <h3 style="color: #000000;">Resultados</h3>
-            <p style="color: #000000;"><strong>Puntuación:</strong> ${quizState.score}/${quizState.questions.length}</p>
-            <p style="color: #000000;"><strong>Precisión:</strong> ${accuracy}%</p>
-            <p style="color: #000000;"><strong>Tiempo:</strong> ${formatTime(timeElapsed)}</p>
+        <div style="text-align: center; padding: 30px; background: var(--color-surface); border-radius: var(--radius-base); border: 2px solid var(--color-border);">
+            <h3 style="color: var(--color-text); margin-bottom: 20px; font-size: 1.5rem;">📊 Resultados Finales</h3>
+            <div style="display: grid; gap: 16px; margin-bottom: 20px;">
+                <p style="color: var(--color-text); font-size: 1.2rem;">
+                    <strong>Puntuación:</strong> ${quizState.score}/${quizState.questions.length}
+                </p>
+                <p style="color: var(--color-text); font-size: 1.2rem;">
+                    <strong>Precisión:</strong> ${accuracy}%
+                </p>
+                <p style="color: var(--color-text); font-size: 1.2rem;">
+                    <strong>Tiempo:</strong> ${formatTime(timeElapsed)}
+                </p>
+            </div>
+            ${accuracy >= 80 ? '<p style="color: var(--color-success); font-size: 1.1rem; font-weight: 600;">🌟 ¡Excelente trabajo!</p>' : 
+              accuracy >= 60 ? '<p style="color: var(--color-warning); font-size: 1.1rem; font-weight: 600;">👍 ¡Buen intento!</p>' : 
+              '<p style="color: var(--color-error); font-size: 1.1rem; font-weight: 600;">💪 ¡Sigue practicando!</p>'}
         </div>
     `;
     
     submitAnswer.style.display = 'none';
     nextQuiz.textContent = '🔄 Nuevo Quiz';
+    nextQuiz.style.display = 'inline-flex';
     nextQuiz.disabled = false;
-    nextQuiz.onclick = startQuiz;
+    nextQuiz.onclick = () => {
+        submitAnswer.style.display = 'inline-flex';
+        startQuiz();
+    };
     
     quizFeedback.classList.add('hidden');
     updateStats();
@@ -486,18 +470,17 @@ function endQuiz() {
 
 function updateQuizTimer() {
     if (!quizState.startTime) return;
-    
     const elapsed = Math.floor((Date.now() - quizState.startTime) / 1000);
     quizTimer.textContent = `⏱️ ${formatTime(elapsed)}`;
 }
 
-// Statistics
+// ========================================
+// ESTADÍSTICAS
+// ========================================
 function updateStats() {
     totalStudiedEl.textContent = studiedCards.size;
     favoritesCountEl.textContent = favorites.size;
     
-    // Calculate quiz accuracy
-    const totalQuizzes = parseInt(quizAccuracyEl.textContent.replace('%', '')) || 0;
     if (quizState.questions.length > 0 && quizState.answered) {
         const accuracy = Math.round((quizState.score / quizState.questions.length) * 100);
         quizAccuracyEl.textContent = `${accuracy}%`;
@@ -517,7 +500,9 @@ function formatTime(seconds) {
     return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
-// Keyboard navigation
+// ========================================
+// NAVEGACIÓN CON TECLADO
+// ========================================
 function handleKeydown(event) {
     const handledKeys = [' ', 'ArrowLeft', 'ArrowRight', 'Enter', 'm', 'M', 'r', 'R', 'f', 'F', 'q', 'Q'];
     
@@ -557,23 +542,34 @@ function handleKeydown(event) {
     }
 }
 
-// Feedback system
-function showFeedback(message) {
+// ========================================
+// SISTEMA DE FEEDBACK
+// ========================================
+function showFeedback(message, type = 'info') {
     const feedback = document.createElement('div');
     feedback.textContent = message;
+    
+    const colors = {
+        success: 'var(--color-success)',
+        error: 'var(--color-error)',
+        warning: 'var(--color-warning)',
+        info: 'var(--color-primary)'
+    };
+    
     feedback.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: var(--color-primary);
-        color: var(--color-btn-primary-text);
-        padding: 12px 16px;
-        border-radius: 8px;
-        font-size: 14px;
-        font-weight: 500;
+        background: ${colors[type] || colors.info};
+        color: white;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
         z-index: 1000;
         animation: slideIn 0.3s ease-out;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: var(--shadow-lg);
+        max-width: 300px;
     `;
     
     if (!document.getElementById('feedback-styles')) {
@@ -584,6 +580,10 @@ function showFeedback(message) {
                 from { transform: translateX(100%); opacity: 0; }
                 to { transform: translateX(0); opacity: 1; }
             }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
         `;
         document.head.appendChild(style);
     }
@@ -591,11 +591,16 @@ function showFeedback(message) {
     document.body.appendChild(feedback);
     
     setTimeout(() => {
-        if (feedback.parentNode) {
-            feedback.remove();
-        }
-    }, 2000);
+        feedback.style.animation = 'slideOut 0.3s ease-out';
+        setTimeout(() => {
+            if (feedback.parentNode) {
+                feedback.remove();
+            }
+        }, 300);
+    }, 2500);
 }
 
-// Initialize app when DOM is loaded
+// ========================================
+// INICIALIZAR AL CARGAR
+// ========================================
 document.addEventListener('DOMContentLoaded', init);
