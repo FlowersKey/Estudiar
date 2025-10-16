@@ -238,9 +238,7 @@ function updateCard() {
     
     setTimeout(() => {
         frontText.textContent = card.front;
-        frontText.style.color = '#1a1a1a';
         backText.textContent = card.back;
-        backText.style.color = '#1a1a1a';
         currentCardElement.textContent = currentCardIndex + 1;
         totalCardsElement.textContent = flashcards.length;
         categoryBadge.textContent = card.category;
