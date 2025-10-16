@@ -347,6 +347,7 @@ body {
     height: 420px;
     cursor: pointer;
     perspective: 1200px;
+    transition: var(--transition);
 }
 
 .flashcard:hover {
